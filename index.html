@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abhiroop Interior | Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          keyframes: {
+            float: { '0%,100%': { transform: 'translate(0,0) scale(1)' }, '50%': { transform: 'translate(30px,-30px) scale(1.05)' } },
+            floatBadge: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+            slideInLeft: { from: { opacity: 0, transform: 'translateX(-50px)' }, to: { opacity: 1, transform: 'translateX(0)' } },
+            slideInRight: { from: { opacity: 0, transform: 'translateX(50px)' }, to: { opacity: 1, transform: 'translateX(0)' } }
+          },
+          animation: {
+            float: 'float 8s ease-in-out infinite',
+            'float-slow': 'float 10s ease-in-out infinite reverse',
+            'float-badge': 'floatBadge 3s ease-in-out infinite',
+            'slide-left': 'slideInLeft 1s ease',
+            'slide-right': 'slideInRight 1s ease'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    /* ================= HERO CAROUSEL (CSS-only) ================= */
+    .hero-carousel { position: relative; height: calc(100vh - 90px); min-height: 560px; overflow: hidden; background: #d9d9e0; }
+    .slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; animation: slideCycle 18s infinite; animation-delay: var(--d, 0s); }
+    .slide-bg { position: absolute; inset: 0; background-size: cover; background-position: center; animation: kenBurns 18s infinite; animation-delay: var(--d, 0s); }
+    .slide-overlay { position: absolute; inset: 0; background: linear-gradient(100deg, rgba(20,21,90,0.92) 0%, rgba(35,36,132,0.72) 45%, rgba(5,171,242,0.25) 100%); }
+    .slide-content > * { opacity: 0; animation: contentIn 18s infinite; animation-delay: var(--d, 0s); }
+    .slide-content > *:nth-child(1) { animation-delay: calc(var(--d, 0s) + 0.1s); }
+    .slide-content > *:nth-child(2) { animation-delay: calc(var(--d, 0s) + 0.3s); }
+    .slide-content > *:nth-child(3) { animation-delay: calc(var(--d, 0s) + 0.5s); }
+    .slide-content > *:nth-child(4) { animation-delay: calc(var(--d, 0s) + 0.7s); }
+
+    @keyframes slideCycle {
+      0%   { opacity: 0; visibility: visible; }
+      5%   { opacity: 1; }
+      31%  { opacity: 1; visibility: visible; }
+      36%  { opacity: 0; visibility: hidden; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+    @keyframes kenBurns {
+      0%   { transform: scale(1); }
+      36%  { transform: scale(1.12); }
+      100% { transform: scale(1.12); }
+    }
+    @keyframes contentIn {
+      0%   { opacity: 0; transform: translateY(40px); }
+      6%   { opacity: 1; transform: translateY(0); }
+      30%  { opacity: 1; transform: translateY(0); }
+      34%  { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 0; transform: translateY(-20px); }
+    }
+
+    .dots { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 20; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: rgba(255,255,255,0.45); animation: dotCycle 18s infinite; animation-delay: var(--d, 0s); }
+    @keyframes dotCycle {
+      0%   { width: 10px; background: rgba(255,255,255,0.45); }
+      3%   { width: 34px; background: #05ABF2; }
+      32%  { width: 34px; background: #05ABF2; }
+      35%  { width: 10px; background: rgba(255,255,255,0.45); }
+      100% { width: 10px; background: rgba(255,255,255,0.45); }
+    }
+    .hero-carousel:hover .slide,
+    .hero-carousel:hover .slide-bg,
+    .hero-carousel:hover .slide-content > *,
+    .hero-carousel:hover .dot { animation-play-state: paused; }
+
+    /* ================= SHARED HELPERS ================= */
+    .btn-primary { transition: all .35s cubic-bezier(.22,1,.36,1); }
+    .btn-primary:hover { transform: translateY(-4px); }
+    .shine { position: relative; overflow: hidden; }
+    .shine::after { content: ''; position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.45), transparent); transform: skewX(-20deg); transition: left .8s ease; }
+    .shine:hover::after { left: 130%; }
+
+    @keyframes pulseRing { 0% { box-shadow: 0 0 0 0 rgba(5,171,242,.5); } 100% { box-shadow: 0 0 0 22px rgba(5,171,242,0); } }
+    .pulse-ring { animation: pulseRing 2s infinite; }
+    @keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    .cta-animated { background-size: 200% 200%; animation: gradientShift 8s ease infinite; }
+    @keyframes spinSlow { to { transform: rotate(360deg); } }
+    .spin-slow { animation: spinSlow 25s linear infinite; }
+
+    /* ================= SCROLL REVEAL (CSS-only, modern browsers) ================= */
+    @keyframes revealUp    { from { opacity: 0; transform: translateY(60px); }  to { opacity: 1; transform: none; } }
+    @keyframes revealLeft  { from { opacity: 0; transform: translateX(-70px); } to { opacity: 1; transform: none; } }
+    @keyframes revealRight { from { opacity: 0; transform: translateX(70px); }  to { opacity: 1; transform: none; } }
+    @keyframes revealZoom  { from { opacity: 0; transform: scale(.85); }        to { opacity: 1; transform: none; } }
+
+    @supports (animation-timeline: view()) {
+      .reveal, .reveal-left, .reveal-right, .reveal-zoom {
+        animation-timeline: view(); animation-fill-mode: both; animation-timing-function: cubic-bezier(.22,1,.36,1);
+        animation-range: entry 0% entry 45%;
+      }
+      .reveal       { animation-name: revealUp; }
+      .reveal-left  { animation-name: revealLeft; }
+      .reveal-right { animation-name: revealRight; }
+      .reveal-zoom  { animation-name: revealZoom; }
+      .stagger > *:nth-child(2) { animation-range: entry 5% entry 50%; }
+      .stagger > *:nth-child(3) { animation-range: entry 10% entry 55%; }
+      .stagger > *:nth-child(4) { animation-range: entry 15% entry 60%; }
+      .stagger > *:nth-child(5) { animation-range: entry 20% entry 65%; }
+      .stagger > *:nth-child(6) { animation-range: entry 25% entry 70%; }
+    }
+
+    /* ================= STATS COUNTER (CSS-only) ================= */
+    @property --n { syntax: '<integer>'; inherits: false; initial-value: 0; }
+    @keyframes cnt15  { to { --n: 15; } }
+    @keyframes cnt500 { to { --n: 500; } }
+    @keyframes cnt350 { to { --n: 350; } }
+    @keyframes cnt25  { to { --n: 25; } }
+    @supports (animation-timeline: view()) {
+      .count { counter-reset: num var(--n); animation-timeline: view(); animation-range: entry 10% entry 100%;
+               animation-fill-mode: both; animation-timing-function: ease-out; animation-duration: 1ms; }
+      .count::before { content: counter(num); }
+      .count .fb { display: none; }
+      .c15  { animation-name: cnt15; }
+      .c500 { animation-name: cnt500; }
+      .c350 { animation-name: cnt350; }
+      .c25  { animation-name: cnt25; }
+    }
+
+    /* ================= PROCESS ================= */
+    .process-line { background: linear-gradient(90deg, #232484, #05ABF2); }
+    .step-card:hover .step-num { transform: scale(1.12) rotate(-6deg); }
+    .step-num { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .slide:first-child { opacity: 1; visibility: visible; }
+    }
+  </style>
+</head>
+<body class="bg-[#EAF5FA] text-[#1a1a2e] overflow-x-hidden pt-[90px] leading-relaxed"
+      style="font-family:'Segoe UI','Poppins',sans-serif;">
+
+  <div id="header-placeholder"></div>
+
+  <!-- ============ 1. HERO CAROUSEL ============ -->
+  <section class="hero-carousel">
+
+    <!-- Slide 1 -->
+    <div class="slide" style="--d:0s;">
+      <div class="slide-bg" style="--d:0s; background-image:url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1920&q=80');"></div>
+      <div class="slide-overlay"></div>
+      <div class="relative z-10 h-full flex items-center px-[5%]">
+        <div class="slide-content max-w-[1200px] mx-auto w-full" style="--d:0s;">
+          <span class="inline-block px-5 py-2 mb-5 rounded-full text-sm font-semibold text-white bg-white/15 backdrop-blur border border-white/30">✦ Premium Interior Design</span>
+          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-white max-w-[700px] mb-6">
+            Transforming Spaces Into <span class="text-[#05ABF2]">Masterpieces</span>
+          </h1>
+          <p class="text-lg text-white/85 max-w-[560px] mb-9">
+            We create stunning interior designs that bring your vision to life with elegance and precision.
+          </p>
+          <div class="flex flex-wrap gap-5">
+            <a href="projects.html" class="btn-primary shine px-9 py-4 rounded-full font-semibold text-white inline-flex items-center gap-2.5 bg-gradient-to-br from-[#232484] to-[#05ABF2] shadow-[0_10px_30px_rgba(5,171,242,0.4)] hover:shadow-[0_15px_40px_rgba(5,171,242,0.6)]">View Our Work →</a>
+            <a href="contact.html" class="btn-primary px-9 py-4 rounded-full font-semibold text-white border-2 border-white hover:bg-white hover:text-[#232484]">Get Free Quote</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide" style="--d:6s;">
+      <div class="slide-bg" style="--d:6s; background-image:url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1920&q=80');"></div>
+      <div class="slide-overlay"></div>
+      <div class="relative z-10 h-full flex items-center px-[5%]">
+        <div class="slide-content max-w-[1200px] mx-auto w-full" style="--d:6s;">
+          <span class="inline-block px-5 py-2 mb-5 rounded-full text-sm font-semibold text-white bg-white/15 backdrop-blur border border-white/30">✦ Modular Kitchens & Wardrobes</span>
+          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-white max-w-[700px] mb-6">
+            Smart Designs For <span class="text-[#05ABF2]">Modern Living</span>
+          </h1>
+          <p class="text-lg text-white/85 max-w-[560px] mb-9">
+            Functional, stylish and space-saving interiors crafted to match your lifestyle and budget.
+          </p>
+          <div class="flex flex-wrap gap-5">
+            <a href="services.html" class="btn-primary shine px-9 py-4 rounded-full font-semibold text-white inline-flex items-center gap-2.5 bg-gradient-to-br from-[#232484] to-[#05ABF2] shadow-[0_10px_30px_rgba(5,171,242,0.4)] hover:shadow-[0_15px_40px_rgba(5,171,242,0.6)]">Explore Services →</a>
+            <a href="contact.html" class="btn-primary px-9 py-4 rounded-full font-semibold text-white border-2 border-white hover:bg-white hover:text-[#232484]">Book Consultation</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide" style="--d:12s;">
+      <div class="slide-bg" style="--d:12s; background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');"></div>
+      <div class="slide-overlay"></div>
+      <div class="relative z-10 h-full flex items-center px-[5%]">
+        <div class="slide-content max-w-[1200px] mx-auto w-full" style="--d:12s;">
+          <span class="inline-block px-5 py-2 mb-5 rounded-full text-sm font-semibold text-white bg-white/15 backdrop-blur border border-white/30">✦ Turnkey Construction</span>
+          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-white max-w-[700px] mb-6">
+            Quality Construction, <span class="text-[#05ABF2]">Delivered On Time</span>
+          </h1>
+          <p class="text-lg text-white/85 max-w-[560px] mb-9">
+            Premium materials, expert craftsmanship and transparent pricing from the first sketch to the final handover.
+          </p>
+          <div class="flex flex-wrap gap-5">
+            <a href="about.html" class="btn-primary shine px-9 py-4 rounded-full font-semibold text-white inline-flex items-center gap-2.5 bg-gradient-to-br from-[#232484] to-[#05ABF2] shadow-[0_10px_30px_rgba(5,171,242,0.4)] hover:shadow-[0_15px_40px_rgba(5,171,242,0.6)]">Know More →</a>
+            <a href="contact.html" class="btn-primary px-9 py-4 rounded-full font-semibold text-white border-2 border-white hover:bg-white hover:text-[#232484]">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Indicators -->
+    <div class="dots">
+      <span class="dot" style="--d:0s;"></span>
+      <span class="dot" style="--d:6s;"></span>
+      <span class="dot" style="--d:12s;"></span>
+    </div>
+  </section>
+
+  <!-- ============ 2. ABOUT US ============ -->
+  <section class="px-[5%] py-24 relative overflow-hidden">
+    <div class="absolute -top-20 -left-24 w-[400px] h-[400px] rounded-full pointer-events-none
+                bg-[radial-gradient(circle,rgba(5,171,242,0.15),transparent_70%)] animate-float"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center max-w-[1200px] mx-auto relative z-10">
+      <!-- Left: text -->
+      <div class="reveal-left">
+        <span class="inline-block px-4 py-1.5 mb-4 rounded-full text-sm font-semibold text-[#232484] bg-[#05ABF2]/15">About Us</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold text-[#232484] leading-tight mb-6">
+          We Design Spaces That <span class="bg-gradient-to-br from-[#232484] to-[#05ABF2] bg-clip-text text-transparent">Tell Your Story</span>
+        </h2>
+        <p class="text-gray-600 mb-4">
+          Abhiroop Interior is a full-service interior design and construction company. We turn ideas into beautiful, functional spaces for homes, offices and commercial properties.
+        </p>
+        <p class="text-gray-600 mb-7">
+          Our team of designers, engineers and craftsmen works closely with you at every step, so the final result matches your taste, your budget and your timeline.
+        </p>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-9">
+          <li class="flex items-center gap-3 text-[#232484] font-semibold"><span class="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs bg-gradient-to-br from-[#232484] to-[#05ABF2]">✓</span>Personalized Designs</li>
+          <li class="flex items-center gap-3 text-[#232484] font-semibold"><span class="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs bg-gradient-to-br from-[#232484] to-[#05ABF2]">✓</span>Premium Materials</li>
+          <li class="flex items-center gap-3 text-[#232484] font-semibold"><span class="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs bg-gradient-to-br from-[#232484] to-[#05ABF2]">✓</span>Expert Team</li>
+          <li class="flex items-center gap-3 text-[#232484] font-semibold"><span class="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs bg-gradient-to-br from-[#232484] to-[#05ABF2]">✓</span>On-Time Delivery</li>
+        </ul>
+        <a href="about.html" class="btn-primary shine px-9 py-4 rounded-full font-semibold text-white inline-flex items-center gap-2.5 bg-gradient-to-br from-[#232484] to-[#05ABF2] shadow-[0_10px_30px_rgba(35,36,132,0.3)] hover:shadow-[0_15px_40px_rgba(5,171,242,0.5)]">Learn More About Us →</a>
+      </div>
+
+      <!-- Right: image -->
+      <div class="reveal-right relative">
+        <div class="absolute -top-5 -right-5 w-full h-full rounded-3xl border-4 border-[#05ABF2]/40"></div>
+        <div class="relative rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(35,36,132,0.25)] group">
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=80"
+               alt="Elegant living room interior by Abhiroop Interior"
+               class="w-full h-[460px] object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#232484]/40 to-transparent"></div>
+        </div>
+        <div class="absolute -bottom-6 -left-6 bg-white px-6 py-5 rounded-2xl shadow-[0_10px_40px_rgba(35,36,132,0.2)] flex items-center gap-4 animate-float-badge">
+          <div class="pulse-ring w-12 h-12 rounded-xl flex items-center justify-center text-white text-2xl bg-gradient-to-br from-[#232484] to-[#05ABF2]">🏆</div>
+          <div>
+            <div class="text-xl font-extrabold text-[#232484]">15+ Years</div>
+            <div class="text-xs text-gray-400">Of Excellence</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. SERVICES ============ -->
+  <section class="px-[5%] py-24 bg-white">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-4xl font-bold text-[#232484] inline-block relative pb-4
+                   after:content-[''] after:absolute after:-bottom-1 after:left-1/2
+                   after:-translate-x-1/2 after:w-20 after:h-1 after:rounded-full
+                   after:bg-gradient-to-r after:from-[#232484] after:to-[#05ABF2]">Our Services</h2>
+        <p class="text-gray-500 max-w-xl mx-auto mt-5">Everything you need to design, build and furnish your dream space, under one roof.</p>
+      </div>
+
+      <div class="stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="reveal group bg-[#EAF5FA] p-9 rounded-3xl transition-all duration-500 hover:-translate-y-3 hover:bg-white hover:shadow-[0_20px_60px_rgba(5,171,242,0.3)]">
+          <div class="w-16 h-16 mb-6 rounded-2xl flex items-center justify-center text-white text-3xl bg-gradient-to-br from-[#232484] to-[#05ABF2] transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">🛋️</div>
+          <h3 class="text-[#232484] text-xl font-bold mb-3">Residential Interiors</h3>
+          <p class="text-gray-500 text-sm mb-5">Complete home interior solutions, from living rooms and bedrooms to full villa makeovers.</p>
+          <a href="services.html" class="text-[#05ABF2] font-semibold inline-flex items-center gap-2 transition-all duration-300 group-hover:gap-4">Learn More <span>→</span></a>
+        </div>
+        <div class="reveal group bg-[#EAF5FA] p-9 rounded-3xl transition-all duration-500 hover:-translate-y-3 hover:bg-white hover:shadow-[0_20px_60px_rgba(5,171,242,0.3)]">
+          <div class="w-16 h-16 mb-6 rounded-2xl flex items-center justify-center text-white text-3xl bg-gradient-to-br from-[#232484] to-[#05ABF2] transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">🏢</div>
+          <h3 class="text-[#232484] text-xl font-bold mb-3">Commercial Interiors</h3>
+          <p class="text-gray-500 text-sm mb-5">Offices, showrooms, cafes and retail stores designed to impress clients and boost productivity.</p>
+          <a href="services.html" class="text-[#05ABF2] font-semibold inline-flex items-center gap-2 transition-all duration-300 group-hover:gap-4">Learn More <span>→</span></a>
+        </div>
+        <div class="reveal group bg-[#EAF5FA] p-9 rounded-3xl transition-all duration-500 hover:-translate-y-3 hover:bg-white hover:shadow-[0_20px_60px_rgba(5,171,242,0.3)]">
+          <div class="w-16 h-16 mb-6 rounded-2xl flex items-center justify-center text-white text-3xl bg-gradient-to-br from-[#232484] to-[#05ABF2] transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">🍳</div>
+          <h3 class="text-[#232484] text-xl font-bold mb-3">Modular Kitchen</h3>
+          <p class="text-gray-500 text-sm mb-5">Smart, durable and stylish kitchens with premium finishes and clever storage solutions.</p>
+          <a href="services.html" class="text-[#05ABF2] font-semibold inline-flex items-center gap-2 transition-all duration-300 group-hover:gap-4">Learn More <span>→</span></a>
+        </div>
+        <div class="reveal group bg-[#EAF5FA] p-9 rounded-3xl transition-all duration-500 hover:-translate-y-3 hover:bg-white hover:shadow-[0_20px_60px_rgba(5,171,242,0.3)]">
+          <div class="w-16 h-16 mb-6 rounded-2xl flex items-center justify-center text-white text-3xl bg-gradient-to-br from-[#232484] to-[#05ABF2] transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">🏗️</div>
+          <h3 class="text-[#232484] text-xl font-bold mb-3">Construction & Renovation</h3>
+          <p class="text-gray-500 text-sm mb-5">Turnkey construction and renovation with quality materials and strict timelines.</p>
+          <a href="services.html" class="text-[#05ABF2] font-semibold inline-flex items-center gap-2 transition-all duration-300 group-hover:gap-4">Learn More <span>→</span></a>
+        </div>
+        <div class="reveal group bg-[#EAF5FA] p-9 rounded-3xl transition-all duration-500 hover:-translate-y-3 hover:bg-white hover:shadow-[0_20px_60px_rgba(5,171,242,0.3)]">
+          <div class="w-16 h-16 mb-6 rounded-2xl flex items-center justify-center text-white text-3xl bg-gradient-to-br from-[#232484] to-[#05ABF2] transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">💡</div>
+          <h3 class="text-[#232484] text-xl font-bold mb-3">Lighting & Decor</h3>
+          <p class="text-gray-500 text-sm mb-5">Layered lighting, furnishings and decor that give your space warmth and personality.</p>
+          <a href="services.html" class="text-[#05ABF2] font-semibold inline-flex items-center gap-2 transition-all duration-300 group-hover:gap-4">Learn More <span>→</span></a>
+        </div>
+        <div class="reveal group bg-[#EAF5FA] p-9 rounded-3xl transition-all duration-500 hover:-translate-y-3 hover:bg-white hover:shadow-[0_20px_60px_rgba(5,171,242,0.3)]">
+          <div class="w-16 h-16 mb-6 rounded-2xl flex items-center justify-center text-white text-3xl bg-gradient-to-br from-[#232484] to-[#05ABF2] transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">📐</div>
+          <h3 class="text-[#232484] text-xl font-bold mb-3">3D Design & Planning</h3>
+          <p class="text-gray-500 text-sm mb-5">Realistic 3D visuals and detailed layouts so you see your space before we build it.</p>
+          <a href="services.html" class="text-[#05ABF2] font-semibold inline-flex items-center gap-2 transition-all duration-300 group-hover:gap-4">Learn More <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. STATS ============ -->
+  <section class="relative px-[5%] py-20 overflow-hidden bg-gradient-to-br from-[#232484] to-[#05ABF2] cta-animated">
+    <div class="spin-slow absolute -top-32 -right-32 w-[400px] h-[400px] rounded-full border-[40px] border-white/5 pointer-events-none"></div>
+    <div class="spin-slow absolute -bottom-32 -left-32 w-[350px] h-[350px] rounded-full border-[30px] border-white/5 pointer-events-none"></div>
+
+    <div class="stagger max-w-[1200px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 relative z-10 text-center text-white">
+      <div class="reveal-zoom p-6 rounded-3xl bg-white/10 backdrop-blur border border-white/20 transition-all duration-500 hover:-translate-y-2 hover:bg-white/20">
+        <div class="text-5xl md:text-6xl font-extrabold mb-2"><span class="count c15"><span class="fb">15</span></span>+</div>
+        <div class="text-white/85 font-medium">Years of Experience</div>
+      </div>
+      <div class="reveal-zoom p-6 rounded-3xl bg-white/10 backdrop-blur border border-white/20 transition-all duration-500 hover:-translate-y-2 hover:bg-white/20">
+        <div class="text-5xl md:text-6xl font-extrabold mb-2"><span class="count c500"><span class="fb">500</span></span>+</div>
+        <div class="text-white/85 font-medium">Completed Projects</div>
+      </div>
+      <div class="reveal-zoom p-6 rounded-3xl bg-white/10 backdrop-blur border border-white/20 transition-all duration-500 hover:-translate-y-2 hover:bg-white/20">
+        <div class="text-5xl md:text-6xl font-extrabold mb-2"><span class="count c350"><span class="fb">350</span></span>+</div>
+        <div class="text-white/85 font-medium">Happy Clients</div>
+      </div>
+      <div class="reveal-zoom p-6 rounded-3xl bg-white/10 backdrop-blur border border-white/20 transition-all duration-500 hover:-translate-y-2 hover:bg-white/20">
+        <div class="text-5xl md:text-6xl font-extrabold mb-2"><span class="count c25"><span class="fb">25</span></span>+</div>
+        <div class="text-white/85 font-medium">Ongoing Projects</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. PROCESS / PLANNING ============ -->
+  <section class="px-[5%] py-24">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="text-center mb-20 reveal">
+        <h2 class="text-3xl md:text-4xl font-bold text-[#232484] inline-block relative pb-4
+                   after:content-[''] after:absolute after:-bottom-1 after:left-1/2
+                   after:-translate-x-1/2 after:w-20 after:h-1 after:rounded-full
+                   after:bg-gradient-to-r after:from-[#232484] after:to-[#05ABF2]">Our Planning Process</h2>
+        <p class="text-gray-500 max-w-xl mx-auto mt-5">A simple, transparent 5-step journey from your first idea to the final handover.</p>
+      </div>
+
+      <div class="relative">
+        <!-- connecting line (desktop) -->
+        <div class="process-line hidden lg:block absolute top-10 left-[10%] right-[10%] h-1 rounded-full opacity-30"></div>
+
+        <div class="stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 relative">
+          <div class="reveal step-card text-center">
+            <div class="step-num w-20 h-20 mx-auto mb-5 rounded-full flex items-center justify-center text-white text-3xl font-extrabold bg-gradient-to-br from-[#232484] to-[#05ABF2] shadow-[0_10px_30px_rgba(35,36,132,0.3)] ring-8 ring-[#EAF5FA]">1</div>
+            <h3 class="text-[#232484] font-bold text-lg mb-2">Consultation</h3>
+            <p class="text-gray-500 text-sm">We understand your needs, style, budget and timeline.</p>
+          </div>
+          <div class="reveal step-card text-center">
+            <div class="step-num w-20 h-20 mx-auto mb-5 rounded-full flex items-center justify-center text-white text-3xl font-extrabold bg-gradient-to-br from-[#232484] to-[#05ABF2] shadow-[0_10px_30px_rgba(35,36,132,0.3)] ring-8 ring-[#EAF5FA]">2</div>
+            <h3 class="text-[#232484] font-bold text-lg mb-2">Concept & Planning</h3>
+            <p class="text-gray-500 text-sm">Layouts, mood boards and 3D concepts for your approval.</p>
+          </div>
+          <div class="reveal step-card text-center">
+            <div class="step-num w-20 h-20 mx-auto mb-5 rounded-full flex items-center justify-center text-white text-3xl font-extrabold bg-gradient-to-br from-[#232484] to-[#05ABF2] shadow-[0_10px_30px_rgba(35,36,132,0.3)] ring-8 ring-[#EAF5FA]">3</div>
+            <h3 class="text-[#232484] font-bold text-lg mb-2">Design & Quotation</h3>
+            <p class="text-gray-500 text-sm">Detailed designs with a clear, transparent cost estimate.</p>
+          </div>
+          <div class="reveal step-card text-center">
+            <div class="step-num w-20 h-20 mx-auto mb-5 rounded-full flex items-center justify-center text-white text-3xl font-extrabold bg-gradient-to-br from-[#232484] to-[#05ABF2] shadow-[0_10px_30px_rgba(35,36,132,0.3)] ring-8 ring-[#EAF5FA]">4</div>
+            <h3 class="text-[#232484] font-bold text-lg mb-2">Execution</h3>
+            <p class="text-gray-500 text-sm">Skilled teams build your space with strict quality checks.</p>
+          </div>
+          <div class="reveal step-card text-center">
+            <div class="step-num w-20 h-20 mx-auto mb-5 rounded-full flex items-center justify-center text-white text-3xl font-extrabold bg-gradient-to-br from-[#232484] to-[#05ABF2] shadow-[0_10px_30px_rgba(35,36,132,0.3)] ring-8 ring-[#EAF5FA]">5</div>
+            <h3 class="text-[#232484] font-bold text-lg mb-2">Handover</h3>
+            <p class="text-gray-500 text-sm">Final inspection and on-time delivery of your dream space.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. CTA ============ -->
+  <section class="px-[5%] pb-24">
+    <div class="reveal-zoom max-w-[1200px] mx-auto relative overflow-hidden rounded-[2rem] px-8 py-16 md:py-20 text-center
+                bg-gradient-to-br from-[#232484] via-[#2f4fc4] to-[#05ABF2] cta-animated
+                shadow-[0_20px_60px_rgba(35,36,132,0.35)]">
+      <div class="spin-slow absolute -top-24 -left-24 w-[300px] h-[300px] rounded-full border-[30px] border-white/10 pointer-events-none"></div>
+      <div class="spin-slow absolute -bottom-24 -right-24 w-[300px] h-[300px] rounded-full border-[30px] border-white/10 pointer-events-none"></div>
+
+      <div class="relative z-10">
+        <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-5 leading-tight">Ready To Transform Your Space?</h2>
+        <p class="text-white/85 max-w-xl mx-auto mb-10 text-lg">
+          Talk to our design experts today and get a free consultation and quote for your dream project.
+        </p>
+        <div class="flex flex-wrap justify-center gap-5">
+          <a href="contact.html" class="btn-primary shine pulse-ring px-10 py-4 rounded-full font-bold text-[#232484] bg-white inline-flex items-center gap-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.2)] hover:shadow-[0_15px_40px_rgba(255,255,255,0.4)]">Get Free Quote →</a>
+          <a href="projects.html" class="btn-primary px-10 py-4 rounded-full font-semibold text-white border-2 border-white hover:bg-white hover:text-[#232484]">View Projects</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-placeholder"></div>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
